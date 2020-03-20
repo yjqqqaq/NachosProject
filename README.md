@@ -16,8 +16,4 @@ project1 主要改动的是threads文件夹里面的，其中KThreads是project1
 
 其余的我没发现什么问题。感觉写的也蛮对的。
 
-现在我们只有代码，别的要交的东西一个都没有QAQ。
-
-
-
-join函数就在KThread里面实现，condition2， 
+现在我们只有代码，别的要交的东西一个都没有QAQ
