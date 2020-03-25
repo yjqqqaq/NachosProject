@@ -2,6 +2,8 @@ package nachos.threads;
 
 import nachos.machine.*;
 
+import java.util.LinkedList;
+
 /**
  * An implementation of condition variables that disables interrupt()s for
  * synchronization.
@@ -21,7 +23,8 @@ public class Condition2 {
      *				<tt>wake()</tt>, or <tt>wakeAll()</tt>.
      */
     public Condition2(Lock conditionLock) {
-	this.conditionLock = conditionLock;
+        this.conditionLock = conditionLock;
+        this.waitqueue = new LinkedList<nachos.threads.KThread>() ;
     }
 
     /**
@@ -32,16 +35,16 @@ public class Condition2 {
      */
     public void sleep() {
         Lib.assertTrue(conditionLock.isHeldByCurrentThread());
-        boolean status=Machine.interrupt().disable();
-        waitqueue.waitForAccess(KThread.currentThread());
 
         conditionLock.release();
+
+        boolean status=Machine.interrupt().disable();
+        waitqueue.add(nachos.threads.KThread.currentThread()) ;
         nachos.threads.KThread.sleep() ;
-        conditionLock.acquire();
 
         Machine.interrupt().restore(status);
 
-
+        conditionLock.acquire();
     }
 
     /**
@@ -52,9 +55,12 @@ public class Condition2 {
 
         Lib.assertTrue(conditionLock.isHeldByCurrentThread());
         boolean status=Machine.interrupt().disable();
-        KThread thread=waitqueue.nextThread();
-        if (!(thread==null))
-            thread.ready();
+      //  System.out.println("爷在喊人" + nachos.threads.KThread.currentThread().getName()) ;
+        if (!waitqueue.isEmpty()) {
+            KThread a = waitqueue.removeFirst();
+
+            a.ready();
+        }
 
         Machine.interrupt().restore(status);
 
@@ -67,18 +73,13 @@ public class Condition2 {
     public void wakeAll() {
 
         Lib.assertTrue(conditionLock.isHeldByCurrentThread());
-        boolean status=Machine.interrupt().disable();
-        KThread thread=waitqueue.nextThread();
-        while(!(thread==null))
-        { thread.ready();
-            thread=waitqueue.nextThread();
-
+        while(!(waitqueue.isEmpty())) {
+            wake() ;
         }
-        Machine.interrupt().restore(status);
 
     }
 
     private Lock conditionLock;
 
-    private static nachos.threads.ThreadQueue waitqueue = nachos.threads.ThreadedKernel.scheduler.newThreadQueue(false);
+    private LinkedList<nachos.threads.KThread> waitqueue  ;
 }

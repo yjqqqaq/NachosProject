@@ -9,9 +9,9 @@ public class Boat
     private static int adult_number_Oahu;// 在Oahu岛上成人的数量
     private static int children_number_Molokai;// 在Molokai岛上孩子的数量
     private static int adult_number_Molokai;// 在Molokai岛上成人的数量
-    private static nachos.threads.Condition children_condition_Oahu;// 孩子在Oahu岛上的条件变量
-    private static nachos.threads.Condition children_condition_Molokai;// 孩子在Molokai岛上的条件变量
-    private static nachos.threads.Condition adult_condition_Oahu;// 成人在Oahu岛上的条件变量
+    private static nachos.threads.Condition2 children_condition_Oahu;// 孩子在Oahu岛上的条件变量
+    private static nachos.threads.Condition2 children_condition_Molokai;// 孩子在Molokai岛上的条件变量
+    private static nachos.threads.Condition2 adult_condition_Oahu;// 成人在Oahu岛上的条件变量
 
     private static nachos.threads.Lock lock;
     private static boolean is_adult_go;// 判断是否该成人走
@@ -22,7 +22,7 @@ public class Boat
     public static void selfTest()
     {
 	BoatGrader b = new BoatGrader();
-	
+
 	// System.out.println("\n ***Testing Boats with only 2 children***");
 	// begin(0, 2, b);
 
@@ -30,7 +30,7 @@ public class Boat
 //  	begin(1, 2, b);
 
   	System.out.println("\n ***Testing Boats with 10 children, 7 adults***");
-  	begin(10, 7, b);
+  	begin(5, 3, b);
     }
 
     public static void begin(int adults, int children, BoatGrader b) {
@@ -43,21 +43,21 @@ public class Boat
                 public void run() {
                     AdultItinerary();
                 }
-            }).fork();
+            }).setName("father " + i).fork();
 
         for (int i = 0; i < children; i++)
             new nachos.threads.KThread(new Runnable() {
                 public void run() {
                     ChildItinerary();
                 }
-            }).fork();
+            }).setName("child " + i).fork();
 
         children_number_Oahu = children;
         adult_number_Oahu = adults;
         lock = new nachos.threads.Lock();
-        children_condition_Oahu = new nachos.threads.Condition(lock);
-        children_condition_Molokai = new nachos.threads.Condition(lock);
-        adult_condition_Oahu = new nachos.threads.Condition(lock);
+        children_condition_Oahu = new nachos.threads.Condition2(lock);
+        children_condition_Molokai = new nachos.threads.Condition2(lock);
+        adult_condition_Oahu = new nachos.threads.Condition2(lock);
         is_pilot = true;
         is_adult_go = false;
         is_end = false;
@@ -68,13 +68,15 @@ public class Boat
 
     static void AdultItinerary() {
 	    bg.initializeAdult(); //Required for autograder interface. Must be the first thing called.
-	//DO NOT PUT ANYTHING ABOVE THIS LINE. 
+	//DO NOT PUT ANYTHING ABOVE THIS LINE.
         lock.acquire() ;
         while (!(is_adult_go && boat_in_Oahu)) {
             adult_condition_Oahu.sleep();
+            //System.out.println("爷活过来啦1");
         }
         bg.AdultRowToMolokai();
         adult_number_Oahu -- ;
+       // System.out.println(adult_number_Oahu) ;
         is_adult_go = false ;
         boat_in_Oahu = false ;
         children_condition_Molokai.wake() ;
@@ -105,6 +107,7 @@ public class Boat
 	                children_condition_Oahu.wake() ;
 	                //System.out.println("wo yao shui le ");
 	                children_condition_Molokai.sleep() ;
+	                //System.out.println("爷活过来啦！");
                 }
 	            else {
                     bg.ChildRideToMolokai() ;
@@ -114,11 +117,12 @@ public class Boat
                     boat_in_Oahu = false ;
 
 	                if (adult_number_Oahu == 0 && children_number_Oahu == 0) {
+	                  //  System.out.println("爷晕了");
 	                    is_end = true ;
 	                    children_condition_Molokai.wakeAll() ;
                     }
 	                else {
-	                    //System.out.println("worinige");
+	                  //  System.out.println("worinige");
 	                    children_condition_Molokai.wake() ;
 	                    children_condition_Molokai.sleep();
 	                    if (adult_number_Oahu > 0) is_adult_go = true ;
@@ -156,5 +160,5 @@ public class Boat
 	bg.AdultRideToMolokai();
 	bg.ChildRideToMolokai();
     }
-    
+
 }

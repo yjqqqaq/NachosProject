@@ -84,7 +84,9 @@ public class Condition {
 
 	conditionLock.release();
 	waiter.P();
-	conditionLock.acquire();	
+	//System.out.println("爷醒啦！");
+	conditionLock.acquire();
+	//System.out.println("爷拿到锁啦！" + nachos.threads.KThread.currentThread().getName());
     }
 
     /**
@@ -94,8 +96,11 @@ public class Condition {
     public void wake() {
 	Lib.assertTrue(conditionLock.isHeldByCurrentThread());
 
-	if (!waitQueue.isEmpty())
-	    ((Semaphore) waitQueue.removeFirst()).V();
+	//System.out.println("爷在喊人" + nachos.threads.KThread.currentThread().getName()) ;
+	if (!waitQueue.isEmpty()) {
+	//    System.out.println("爷喊到人了！");
+        ((Semaphore) waitQueue.removeFirst()).V();
+    }
     }
 
     /**
