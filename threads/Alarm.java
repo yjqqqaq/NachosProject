@@ -1,8 +1,6 @@
 package nachos.threads;
 
 import nachos.machine.*;
-import sun.awt.image.ImageWatched;
-
 import java.util.LinkedList;
 
 /**

@@ -36,15 +36,17 @@ public class Condition2 {
     public void sleep() {
         Lib.assertTrue(conditionLock.isHeldByCurrentThread());
 
-        conditionLock.release();
+
 
         boolean status=Machine.interrupt().disable();
         waitqueue.add(nachos.threads.KThread.currentThread()) ;
+       // System.out.println("ye shui le ");
+        conditionLock.release();
         nachos.threads.KThread.sleep() ;
-
+        //System.out.println("爷活了" + nachos.threads.KThread.currentThread().getName());
+        conditionLock.acquire();
         Machine.interrupt().restore(status);
 
-        conditionLock.acquire();
     }
 
     /**
@@ -56,10 +58,13 @@ public class Condition2 {
         Lib.assertTrue(conditionLock.isHeldByCurrentThread());
         boolean status=Machine.interrupt().disable();
 
-        if (!waitqueue.isEmpty()) {
-            KThread a = waitqueue.removeFirst();
 
+        if (!waitqueue.isEmpty()) {
+
+            nachos.threads.KThread a = waitqueue.removeFirst();
+          //  System.out.println("han dao " + a.getName());
             a.ready();
+           // System.out.println("wanshierle ");
         }
 
         Machine.interrupt().restore(status);

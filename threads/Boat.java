@@ -7,9 +7,10 @@ public class Boat
     private static nachos.threads.KThread parentThread;
     private static int children_number_Oahu;
     private static int adult_number_Oahu;
-    private static nachos.threads.Condition2 children_condition_Oahu;
-    private static nachos.threads.Condition2 children_condition_Molokai;
-    private static nachos.threads.Condition2 adult_condition_Oahu;
+    private static int children_number_Molokai;
+    private static nachos.threads.Condition children_condition_Oahu;
+    private static nachos.threads.Condition children_condition_Molokai;
+    private static nachos.threads.Condition adult_condition_Oahu;
 
     private static nachos.threads.Lock lock;
     private static boolean is_adult_go;
@@ -28,7 +29,7 @@ public class Boat
 //  	begin(1, 2, b);
 
   	System.out.println("\n ***Testing Boats with 10 children, 7 adults***");
-  	begin(5, 3, b);
+  	begin(10, 7, b);
     }
 
     public static void begin(int adults, int children, BoatGrader b) {
@@ -52,15 +53,19 @@ public class Boat
 
         children_number_Oahu = children;
         adult_number_Oahu = adults;
+        children_number_Molokai = 0;
+
         lock = new nachos.threads.Lock();
-        children_condition_Oahu = new nachos.threads.Condition2(lock);
-        children_condition_Molokai = new nachos.threads.Condition2(lock);
-        adult_condition_Oahu = new nachos.threads.Condition2(lock);
+        children_condition_Oahu = new nachos.threads.Condition(lock);
+        children_condition_Molokai = new nachos.threads.Condition(lock);
+        adult_condition_Oahu = new nachos.threads.Condition(lock);
         is_pilot = true;
         is_adult_go = false;
         is_end = false;
         boat_in_Oahu = true;
 
+
+        //while (!is_end) parentThread.yield();
     }
 
 
@@ -69,7 +74,9 @@ public class Boat
 	//DO NOT PUT ANYTHING ABOVE THIS LINE.
         lock.acquire() ;
         while (!(is_adult_go && boat_in_Oahu)) {
+            //System.out.println(nachos.threads.KThread.currentThread().getName() + "go to sleep") ;
             adult_condition_Oahu.sleep();
+            //System.out.println(nachos.threads.KThread.currentThread().getName() + "wake up") ;
 
         }
         bg.AdultRowToMolokai();
@@ -90,56 +97,72 @@ public class Boat
 
     static void ChildItinerary() {
 	    bg.initializeChild();
+        lock.acquire();
     	boolean my_oahu = true ;
-	    lock.acquire();
 	    while (!is_end) {
 	        if (my_oahu) {
-	            if (!boat_in_Oahu || is_adult_go) {
+	            while (!boat_in_Oahu || is_adult_go) {
+	                //System.out.println(nachos.threads.KThread.currentThread().getName() + "go to sleep");
 	                children_condition_Oahu.sleep() ;
                 }
+                children_number_Oahu -- ;
+                children_number_Molokai ++;
 	            if (is_pilot) {
 	                bg.ChildRowToMolokai();
 	                is_pilot = false ;
-	                children_number_Oahu -- ;
 	                my_oahu = false ;
+	                //System.out.println("hanren ");
+                    //System.out.println(children_number_Oahu) ;
 	                children_condition_Oahu.wake() ;
-	                //System.out.println("wo yao shui le ");
-	                children_condition_Molokai.sleep() ;
+	               // lock.acquire();
+	               // System.out.println("wo yao shui le " + nachos.threads.KThread.currentThread().getName());
+	                //System.out.println("wo xing le!!!" );
+
                 }
 	            else {
                     bg.ChildRideToMolokai() ;
                     my_oahu = false ;
-                    children_number_Oahu -- ;
                     is_pilot = true ;
-                    boat_in_Oahu = false ;
-
+                    //System.out.println(children_number_Oahu);
 	                if (adult_number_Oahu == 0 && children_number_Oahu == 0) {
-
+	                    //System.out.println("niubi ");
 	                    is_end = true ;
-	                    children_condition_Molokai.wakeAll() ;
+	                    is_adult_go = true ;
                     }
 	                else {
-
+                        boat_in_Oahu = false ;
 	                    children_condition_Molokai.wake() ;
-	                    children_condition_Molokai.sleep();
-	                    if (adult_number_Oahu > 0) is_adult_go = true ;
                     }
                 }
+                //children_condition_Molokai.sleep();
             }
 	        else {
+	            //System.out.println("sha bi le ");
+                while (boat_in_Oahu) {
+                  //  System.out.println(nachos.threads.KThread.currentThread().getName() + "goto sleep");
+                    children_condition_Molokai.sleep();
+
+                   // System.out.println(nachos.threads.KThread.currentThread().getName() + "wake up");
+                }
+
 	            bg.ChildRowToOahu();
 	            my_oahu = true ;
 	            children_number_Oahu ++ ;
+	            children_number_Molokai -- ;
 	            boat_in_Oahu = true ;
-	            if (adult_number_Oahu == 0) {
+	            if (adult_number_Oahu == 0 || children_number_Molokai == 0) {
 	                is_adult_go = false ;
-	                children_condition_Oahu.wake() ;
+	                //
+	                children_condition_Oahu.wake();
+	                //lock.acquire();
                 }
 	            else {
-	                if (is_adult_go) adult_condition_Oahu.wake() ;
-	                else children_condition_Oahu.wake() ;
+	                is_adult_go = true ;
+	               // System.out.println(nachos.threads.KThread.currentThread().getName() + "Call for adult");
+	                adult_condition_Oahu.wake();
+	                //lock.acquire();
                 }
-	            children_condition_Oahu.sleep() ;
+	            //children_condition_Oahu.sleep();
             }
         }
         lock.release();

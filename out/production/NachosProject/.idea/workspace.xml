@@ -2,8 +2,44 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="933091c2-b7b6-4713-903a-784b29385f73" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/nachos.conf" beforeDir="false" afterPath="$PROJECT_DIR$/nachos.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos.conf" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/Boat$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/Boat$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/Boat$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/Boat$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/Boat.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/Boat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/Condition2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/Condition2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$10.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$11.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$12.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$13.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$14.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$15.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$8.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$9.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$PingTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$PingTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$testPing.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread$testPing.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NachosProject/nachos/threads/KThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/threads/Condition2Test$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/threads/Condition2Test$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/threads/Condition2Test$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/threads/Condition2Test.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/threads/KThreadTest$A_thread.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/threads/KThreadTest$B_thread.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/threads/KThreadTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/threads/MyCount.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NachosProject/threads/SaveThread.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/threads/Alarm.java" beforeDir="false" afterPath="$PROJECT_DIR$/threads/Alarm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/threads/Boat.java" beforeDir="false" afterPath="$PROJECT_DIR$/threads/Boat.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/threads/Condition2.java" beforeDir="false" afterPath="$PROJECT_DIR$/threads/Condition2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/threads/KThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/threads/KThread.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +65,12 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
   <component name="RunManager">
     <configuration name="Machine" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -60,7 +102,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1585121924948</updated>
-      <workItem from="1585121929557" duration="54000" />
+      <workItem from="1585121929557" duration="1742000" />
+      <workItem from="1585188181141" duration="5241000" />
+      <workItem from="1585193654411" duration="25000" />
     </task>
     <servers />
   </component>
@@ -72,5 +116,25 @@
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="632" y="420" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1707.1027@0.0.1707.1027" timestamp="1585121966381" />
+    <state width="1663" height="277" key="GridCell.Tab.0.bottom" timestamp="1585193426456">
+      <screen x="0" y="0" width="1707" height="1027" />
+    </state>
+    <state width="1663" height="277" key="GridCell.Tab.0.bottom/0.0.1707.1027@0.0.1707.1027" timestamp="1585193426456" />
+    <state width="1663" height="277" key="GridCell.Tab.0.center" timestamp="1585193426456">
+      <screen x="0" y="0" width="1707" height="1027" />
+    </state>
+    <state width="1663" height="277" key="GridCell.Tab.0.center/0.0.1707.1027@0.0.1707.1027" timestamp="1585193426456" />
+    <state width="1663" height="277" key="GridCell.Tab.0.left" timestamp="1585193426456">
+      <screen x="0" y="0" width="1707" height="1027" />
+    </state>
+    <state width="1663" height="277" key="GridCell.Tab.0.left/0.0.1707.1027@0.0.1707.1027" timestamp="1585193426456" />
+    <state width="1663" height="277" key="GridCell.Tab.0.right" timestamp="1585193426456">
+      <screen x="0" y="0" width="1707" height="1027" />
+    </state>
+    <state width="1663" height="277" key="GridCell.Tab.0.right/0.0.1707.1027@0.0.1707.1027" timestamp="1585193426456" />
+    <state x="516" y="222" width="672" height="678" key="search.everywhere.popup" timestamp="1585191540505">
+      <screen x="0" y="0" width="1707" height="1027" />
+    </state>
+    <state x="516" y="222" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1585191540505" />
   </component>
 </project>

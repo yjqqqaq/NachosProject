@@ -97,6 +97,9 @@ public class Condition {
 	Lib.assertTrue(conditionLock.isHeldByCurrentThread());
 
 	//System.out.println("爷在喊人" + nachos.threads.KThread.currentThread().getName()) ;
+    //    for (int i = 0; i < waitQueue.size(); i ++) {
+    //        System.out.println(waitQueue.get(i));
+    //    }
 	if (!waitQueue.isEmpty()) {
 	//    System.out.println("爷喊到人了！");
         ((Semaphore) waitQueue.removeFirst()).V();

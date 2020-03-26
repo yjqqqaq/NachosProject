@@ -263,10 +263,10 @@ public class KThread {
      */
     public void ready() {
 	Lib.debug(dbgThread, "Ready thread: " + toString());
-	
+	//System.out.println(this.getName());
 	Lib.assertTrue(Machine.interrupt().disabled());
 	Lib.assertTrue(status != statusReady);
-	
+	//System.out.println(this.getName());
 	status = statusReady;
 	if (this != idleThread)
 	    readyQueue.waitForAccess(this);
