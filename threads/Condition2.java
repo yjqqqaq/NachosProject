@@ -55,7 +55,7 @@ public class Condition2 {
 
         Lib.assertTrue(conditionLock.isHeldByCurrentThread());
         boolean status=Machine.interrupt().disable();
-      //  System.out.println("爷在喊人" + nachos.threads.KThread.currentThread().getName()) ;
+
         if (!waitqueue.isEmpty()) {
             KThread a = waitqueue.removeFirst();
 

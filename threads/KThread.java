@@ -1,8 +1,6 @@
 package nachos.threads;
 
 import nachos.machine.*;
-import threads.Condition2Test;
-import threads.KThreadTest;
 import java.util.* ;
 
 /**
@@ -432,7 +430,7 @@ public class KThread {
 		//selfTest_PriorityScheduler2();
     }
 
-	public static void selfTest_join() {// 检测join是否工作正常
+	public static void selfTest_join() {
 		Lib.debug(dbgThread, "Enter KThread.selfTest");
 		System.out.println("______join test begin_____");
 		final KThread thread1 = new KThread(new PingTest(1));
@@ -449,34 +447,34 @@ public class KThread {
 
 	}
 
-	public static void selfTest_Condition2() {// 检测Condition2是否工作正常
+	public static void selfTest_Condition2() {
 		Lib.debug(dbgThread, "Enter KThread.selfTest");
 		System.out.println("______Condition2 test begin_____");
 		final Lock lock = new Lock();
 		final Condition2 condition2 = new Condition2(lock);
 		new KThread(new Runnable() {
 			public void run() {
-				lock.acquire();// 线程执行之前获得锁
+				lock.acquire();
 
 				KThread.currentThread().yield();
 				condition2.sleep();
 				System.out.println("thread1 executing");
 				condition2.wake();
 
-				lock.release();// 线程执行完毕将锁释放
+				lock.release();
 				System.out.println("thread1 execute successful");
 			}
 		}).fork();
 		new KThread(new Runnable() {
 			public void run() {
-				lock.acquire();// 线程执行之前获得锁
+				lock.acquire();
 
 				KThread.currentThread().yield();
 				condition2.wake();
 				System.out.println("thread2 executing");
 				condition2.sleep();
 
-				lock.release();// 线程执行完毕将锁释放
+				lock.release();
 
 				System.out.println("thread2 execute successful");
 			}
@@ -551,7 +549,7 @@ public class KThread {
 			pp=(pp+1)%6+1;
 		}
 	}
-	public static void selfTest_Alarm() {// 检测Alarm是否工作正常
+	public static void selfTest_Alarm() {
 
 		new KThread(new Runnable() {
 			public void run() {
@@ -567,7 +565,7 @@ public class KThread {
 		nachos.threads.ThreadedKernel.alarm.waitUntil(100000) ;
 
 	}
-	public static void selfTest_Communicator() {// 检测Communicator是否工作正常
+	public static void selfTest_Communicator() {
 		Lib.debug(dbgThread, "Enter KThread.selfTest");
 		System.out.println("______Communicator test begin_____");
 		final nachos.threads.Communicator communicator = new nachos.threads.Communicator();
@@ -612,18 +610,18 @@ public class KThread {
 	}
 
 	public static void selftest_PriorityScheduler() {
-		System.out.println("-----PriorityScheduler功能测试-----");
+		System.out.println("-----PriorityScheduler test-----");
  		KThread thread1 = new KThread(new Runnable() {
 			public void run() {
 				KThread.yield();
-				System.out.println("线程1Finish");
+				System.out.println("thread 1Finish");
 			}
 		});
 		thread1.setName("thread1");
 		KThread thread2 = new KThread(new Runnable() {
 			public void run() {
 				KThread.yield();
-				System.out.println("线程2Finish");
+				System.out.println("thread 2Finish");
 			}
 		});
 		thread2.setName("thread2");
@@ -631,14 +629,14 @@ public class KThread {
 			public void run() {
 				thread1.join();
 				KThread.yield();
-				System.out.println("线程3Finish");
+				System.out.println("thread 3Finish");
 			}
 		});
 		thread3.setName("thread3");
  		KThread thread4 = new KThread(new Runnable() {
 			public void run() {
 				KThread.yield();
-				System.out.println("线程4Finish");
+				System.out.println("thread 4Finish");
 			}
 		});
 		thread4.setName("thread4");

@@ -4,20 +4,18 @@ import nachos.ag.BoatGrader;
 public class Boat
 {
     static BoatGrader bg;
-    private static nachos.threads.KThread parentThread;// 父进程
-    private static int children_number_Oahu;// 在Oahu岛上孩子的数量
-    private static int adult_number_Oahu;// 在Oahu岛上成人的数量
-    private static int children_number_Molokai;// 在Molokai岛上孩子的数量
-    private static int adult_number_Molokai;// 在Molokai岛上成人的数量
-    private static nachos.threads.Condition2 children_condition_Oahu;// 孩子在Oahu岛上的条件变量
-    private static nachos.threads.Condition2 children_condition_Molokai;// 孩子在Molokai岛上的条件变量
-    private static nachos.threads.Condition2 adult_condition_Oahu;// 成人在Oahu岛上的条件变量
+    private static nachos.threads.KThread parentThread;
+    private static int children_number_Oahu;
+    private static int adult_number_Oahu;
+    private static nachos.threads.Condition2 children_condition_Oahu;
+    private static nachos.threads.Condition2 children_condition_Molokai;
+    private static nachos.threads.Condition2 adult_condition_Oahu;
 
     private static nachos.threads.Lock lock;
-    private static boolean is_adult_go;// 判断是否该成人走
-    private static boolean boat_in_Oahu;// 判断船是否在Oahu
-    private static boolean is_pilot;// 判断现在的孩子 是不是驾驶员
-    private static boolean is_end;// 判断运送是否结束
+    private static boolean is_adult_go;
+    private static boolean boat_in_Oahu;
+    private static boolean is_pilot;
+    private static boolean is_end;
 
     public static void selfTest()
     {
@@ -72,7 +70,7 @@ public class Boat
         lock.acquire() ;
         while (!(is_adult_go && boat_in_Oahu)) {
             adult_condition_Oahu.sleep();
-            //System.out.println("爷活过来啦1");
+
         }
         bg.AdultRowToMolokai();
         adult_number_Oahu -- ;
@@ -107,7 +105,6 @@ public class Boat
 	                children_condition_Oahu.wake() ;
 	                //System.out.println("wo yao shui le ");
 	                children_condition_Molokai.sleep() ;
-	                //System.out.println("爷活过来啦！");
                 }
 	            else {
                     bg.ChildRideToMolokai() ;
@@ -117,12 +114,12 @@ public class Boat
                     boat_in_Oahu = false ;
 
 	                if (adult_number_Oahu == 0 && children_number_Oahu == 0) {
-	                  //  System.out.println("爷晕了");
+
 	                    is_end = true ;
 	                    children_condition_Molokai.wakeAll() ;
                     }
 	                else {
-	                  //  System.out.println("worinige");
+
 	                    children_condition_Molokai.wake() ;
 	                    children_condition_Molokai.sleep();
 	                    if (adult_number_Oahu > 0) is_adult_go = true ;
