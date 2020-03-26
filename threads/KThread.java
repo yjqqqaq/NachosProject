@@ -426,7 +426,7 @@ public class KThread {
 		//selfTest_Alarm();
 		//selfTest_Communicator() ;
 		//selftest_PriorityScheduler() ;
-		selfTest_Boat() ;
+		//selfTest_Boat() ;
 		//selfTest_PriorityScheduler2();
     }
 
