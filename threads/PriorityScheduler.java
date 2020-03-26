@@ -79,13 +79,13 @@ public class PriorityScheduler extends Scheduler {
 			init();
 		}
 		public void init() {
-			cnt=0;
-			wait=new TreeSet[priorityMaximum+1];
-			for(int i=0;i<=priorityMaximum;i++)
-				wait[i]=new TreeSet<ThreadState>();
+			cnt = 0;
+			waitSet = new TreeSet[ priorityMaximum + 1];
+			for(int i = 0; i <= priorityMaximum; i ++)
+				waitSet[i]=new TreeSet<ThreadState>();
 		}
 
-		public void waitForAccess(KThread thread) {
+		public void waitForAccess(nachos.threads.KThread thread) {
 			Lib.assertTrue(Machine.interrupt().disabled());
 			getThreadState(thread).waitForAccess(this);
 		}
@@ -101,14 +101,13 @@ public class PriorityScheduler extends Scheduler {
 			Lib.assertTrue(Machine.interrupt().disabled());
 			ThreadState res=pickNextThread();
 
-			return res==null?null:res.thread;
+			return res == null ? null : res.thread;
 		}
 
 		protected ThreadState pickNextThread() {
 			ThreadState res=NextThread();
 
-			if(lockholder!=null)
-			{
+			if(lockholder!=null) {
 				lockholder.holdQueues.remove(this);
 				lockholder.getEffectivePriority();
 				lockholder=res;
@@ -118,10 +117,10 @@ public class PriorityScheduler extends Scheduler {
 		}
 
 		protected ThreadState NextThread() {
-			ThreadState res=null;
+			ThreadState res = null;
 
-			for(int i=priorityMaximum;i>=priorityMinimum;i--)
-				if((res=wait[i].pollFirst())!=null) break;
+			for(int i = priorityMaximum ; i >= priorityMinimum ; i--)
+				if((res=waitSet[i].pollFirst())!=null) break;
 
 			return res;
 		}
@@ -131,22 +130,22 @@ public class PriorityScheduler extends Scheduler {
 		}
 
 		public void add(ThreadState state) {
-			wait[state.effectivepriority].add(state);
+			waitSet[state.effectivepriority].add(state);
 		}
 
 		public boolean isEmpty() {
-			for(int i=0;i<=priorityMaximum;i++)
-				if(!wait[i].isEmpty()) return false;
+			for(int i = 0 ; i <= priorityMaximum; i++)
+				if(!waitSet[i].isEmpty()) return false;
 			return true;
 		}
 
 		protected long cnt;
 		public boolean transferPriority;
-		protected TreeSet<ThreadState>[] wait;
+		protected TreeSet<ThreadState>[] waitSet;
 		protected ThreadState lockholder=null;
 	}
 
-	protected class ThreadState implements Comparable<ThreadState>{
+	protected class ThreadState implements Comparable<ThreadState> {
 		public ThreadState(KThread thread) {
 			this.thread = thread;
 			holdQueues=new LinkedList<PriorityQueue>();
@@ -163,17 +162,15 @@ public class PriorityScheduler extends Scheduler {
 			int res=priority;
 			if(!holdQueues.isEmpty()) {
 				Iterator it=holdQueues.iterator();
-				while(it.hasNext())
-				{
+				while(it.hasNext()) {
 					PriorityQueue holdQueue=(PriorityQueue)it.next();
 					for(int i=priorityMaximum;i>res;i--)
-						if(!holdQueue.wait[i].isEmpty()) { res=i;break;}
+						if(!holdQueue.waitSet[i].isEmpty()) { res=i;break;}
 				}
 			}
-			if(waitQueue!=null&&res!=effectivepriority)
-			{
-				((PriorityQueue)waitQueue).wait[effectivepriority].remove(this);
-				((PriorityQueue)waitQueue).wait[res].add(this);
+			if(waitQueue!=null&&res!=effectivepriority) {
+				((PriorityQueue)waitQueue).waitSet[effectivepriority].remove(this);
+				((PriorityQueue)waitQueue).waitSet[res].add(this);
 			}
 			effectivepriority=res;
 			if(lockholder!=null)
@@ -193,7 +190,7 @@ public class PriorityScheduler extends Scheduler {
 		public void waitForAccess(PriorityQueue waitQueue) {
 			Lib.assertTrue(Machine.interrupt().disabled());
 
-			time=++waitQueue.cnt;
+			time = ++waitQueue.cnt;
 
 			this.waitQueue=waitQueue;
 			waitQueue.add(this);
@@ -208,16 +205,16 @@ public class PriorityScheduler extends Scheduler {
 			Lib.assertTrue(waitQueue.isEmpty());
 		}
 
-		protected KThread thread;
+		protected nachos.threads.KThread thread;
 		protected int priority,effectivepriority;
 		protected long time;
-		protected ThreadQueue waitQueue=null;
+		protected nachos.threads.ThreadQueue waitQueue=null;
 		protected LinkedList holdQueues;
 		protected ThreadState lockholder=null;
 
-		public int compareTo(ThreadState ts) {
-			if(time==ts.time) return 0;
-			return time>ts.time?1:-1;
+		public int compareTo(ThreadState ano) {
+			if(time == ano.time) return 0 ;
+			return time > ano.time ? 1 : -1 ;
 		}
 	}
 }

@@ -49,7 +49,10 @@ public class ThreadedKernel extends Kernel {
 	KThread.selfTest();
 	Semaphore.selfTest();
 	SynchList.selfTest();
-	nachos.threads.Boat.selfTest();
+	//nachos.threads.Boat.selfTest();
+        //nachos.threads.KThread.selfTest_Condition2();
+        //nachos.threads.KThread.selfTest_Alarm();
+        //nachos.threads.KThread.selfTest_join();
 	if (Machine.bank() != null) {
 	    ElevatorBank.selfTest();
 	}

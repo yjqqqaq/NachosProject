@@ -286,8 +286,8 @@ public class KThread {
 
 		Lib.assertTrue(this != currentThread);
 
-		// nachos.machine.Lib.assertTrue(joinCounter == 0 );
-		// joinCounter += 1 ;
+		nachos.machine.Lib.assertTrue(joinCounter == 0 );
+		joinCounter += 1 ;
 
 		boolean status = nachos.machine.Machine.interrupt().disable();
 		if (this.status != statusFinished) {
@@ -421,11 +421,11 @@ public class KThread {
     public static void selfTest() {
 		Lib.debug(dbgThread, "Enter KThread.selfTest");
 		//System.out.println("FUCK YOU");
-		//selfTest_join();
+		//	selfTest_join();
 		//selfTest_Condition2();
 		//selfTest_Alarm();
 		//selfTest_Communicator() ;
-		//selftest_PriorityScheduler() ;
+		selftest_PriorityScheduler() ;
 		//selfTest_Boat() ;
 		//selfTest_PriorityScheduler2();
     }
@@ -457,8 +457,9 @@ public class KThread {
 				lock.acquire();
 
 				KThread.currentThread().yield();
+				System.out.println("thread 1 go to sleep") ;
 				condition2.sleep();
-				System.out.println("thread1 executing");
+				System.out.println("thread1 is woken up");
 				condition2.wake();
 
 				lock.release();
@@ -470,10 +471,11 @@ public class KThread {
 				lock.acquire();
 
 				KThread.currentThread().yield();
-				condition2.wake();
 				System.out.println("thread2 executing");
+				condition2.wake();
+				System.out.println("thread 2 go to sleep");
 				condition2.sleep();
-
+				System.out.println("thread 2 is woken up");
 				lock.release();
 
 				System.out.println("thread2 execute successful");
@@ -558,10 +560,29 @@ public class KThread {
 				ThreadedKernel.alarm.waitUntil(5000);
 
 				System.out.println(Machine.timer().getTime());
-				System.out.println("successful");
+				System.out.println("5000 successful");
 			}
 		}).fork();
+		new KThread(new Runnable() {
+			public void run() {
+				System.out.println(Machine.timer().getTime());
 
+				ThreadedKernel.alarm.waitUntil(2000);
+
+				System.out.println(Machine.timer().getTime());
+				System.out.println("2000 successful");
+			}
+		}).fork();
+		new KThread(new Runnable() {
+			public void run() {
+				System.out.println(Machine.timer().getTime());
+
+				ThreadedKernel.alarm.waitUntil(3000);
+
+				System.out.println(Machine.timer().getTime());
+				System.out.println("3000 successful");
+			}
+		}).fork();
 		nachos.threads.ThreadedKernel.alarm.waitUntil(100000) ;
 
 	}
@@ -592,7 +613,7 @@ public class KThread {
 			public void run() {
 				System.out.println("Thread 3 try to listen") ;
 				System.out.println("Thread 3 got " + communicator.listen());
-				System.out.println("thread3 successful");
+				System.out.println("thread3 end successfully");
 
 			}
 		}).fork();
@@ -602,7 +623,7 @@ public class KThread {
 			public void run() {
 				System.out.println("Thread 4 try to listen");
 				System.out.println("Thread 4 got" + communicator.listen());
-				System.out.println("thread4 successful");
+				System.out.println("thread4 end successful");
 
 			}
 		}).fork();

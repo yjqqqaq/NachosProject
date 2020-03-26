@@ -19,8 +19,8 @@ public class Communicator {
     public Communicator() {
         lock = new nachos.threads.Lock() ;
         queue = new LinkedList<Integer>() ;
-        speakCondition = new nachos.threads.Condition2(lock) ;
-        listenCondition = new nachos.threads.Condition2(lock) ;
+        speakCondition = new nachos.threads.Condition(lock) ;
+        listenCondition = new nachos.threads.Condition(lock) ;
         word = 0;
         speakercount = 0;
         listenercount = 0 ;
@@ -46,6 +46,7 @@ public class Communicator {
             speakCondition.sleep() ;
             queue.offer(word) ;
             listenCondition.wake() ;
+            // System.out.println("wake u up");
             speakercount -- ;
         }
         else {
@@ -83,7 +84,7 @@ public class Communicator {
 
     private nachos.threads.Lock lock;
 
-    private nachos.threads.Condition2 speakCondition, listenCondition;
+    private nachos.threads.Condition speakCondition, listenCondition;
 
     private int word,speakercount,listenercount;
 
