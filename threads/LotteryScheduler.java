@@ -2,9 +2,7 @@ package nachos.threads;
 
 import nachos.machine.*;
 
-import java.util.TreeSet;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.LinkedList;
 
 /**
  * A scheduler that chooses threads using a lottery.
@@ -32,7 +30,9 @@ public class LotteryScheduler extends PriorityScheduler {
      */
     public LotteryScheduler() {
     }
-    
+    public static int priorityDefault = 1;
+	public static int priorityMinimum = 1;
+	public static int priorityMaximum = Integer.MAX_VALUE;
     /**
      * Allocate a new lottery thread queue.
      *
@@ -42,7 +42,55 @@ public class LotteryScheduler extends PriorityScheduler {
      * @return	a new lottery thread queue.
      */
     public ThreadQueue newThreadQueue(boolean transferPriority) {
-	// implement me
-	return null;
+	return new LotteryQueue(transferPriority);
+    }
+    protected class LotteryQueue extends PriorityQueue {
+        LotteryQueue(boolean transferPriority) {
+			this.transferPriority = transferPriority;
+			init();
+		}
+        public void init() {
+			waitQueue = new LinkedList<LotteryThreadState>();
+        }
+        protected LotteryThreadState NextThread() {
+            if (isEmpty()) return null;
+            int sum = 0;
+            for (int i = 0; i < waitQueue.size(); ++i)
+                sum += waitQueue.get(i).getEffectivePriority();
+            int pick = Lib.random(sum) + 1;
+            for (int i = 0; i < waitQueue.size(); ++i) {
+                int prio = waitQueue.get(i).getEffectivePriority();
+                if (pick <= prio) {
+                    return waitQueue.get(i);
+                }
+                pick -= prio;
+            }
+            return null;
+        }
+        public void add(LotteryThreadState state) {
+            waitQueue.add(state);
+			waitSet[state.effectivepriority].add(state);
+		}
+
+		public boolean isEmpty() {
+			return waitQueue.isEmpty();
+        }
+        public LinkedList<LotteryThreadState> waitQueue;
+    }
+    protected class LotteryThreadState extends ThreadState {
+        public LotteryThreadState(KThread thread) {
+			this.thread = thread;
+            holdQueues=new LinkedList<LotteryQueue>();
+            
+			setPriority(priorityDefault);
+			getEffectivePriority();
+		}
+        public int getEffectivePriority() {
+            int ret = priority;
+            for (int i = 0; i < waitQueue.waitQueue.size(); ++i)
+                ret += waitQueue.waitQueue.get(i).getEffectivePriority();
+            return ret;
+        }
+        protected LotteryQueue waitQueue;
     }
 }

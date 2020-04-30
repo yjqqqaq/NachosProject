@@ -74,6 +74,10 @@ public class PriorityScheduler extends Scheduler {
 	}
 
 	protected class PriorityQueue extends ThreadQueue {
+		PriorityQueue() {
+			this.transferPriority = true;
+			init();
+		}
 		PriorityQueue(boolean transferPriority) {
 			this.transferPriority = transferPriority;
 			init();
@@ -146,6 +150,7 @@ public class PriorityScheduler extends Scheduler {
 	}
 
 	protected class ThreadState implements Comparable<ThreadState> {
+		public ThreadState() {}
 		public ThreadState(KThread thread) {
 			this.thread = thread;
 			holdQueues=new LinkedList<PriorityQueue>();
