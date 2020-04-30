@@ -418,14 +418,15 @@ public class KThread {
     /**
      * Tests whether this module is working.
      */
-    public static void selfTest() {
+    public static void selfTest() { 
 		Lib.debug(dbgThread, "Enter KThread.selfTest");
 		//System.out.println("FUCK YOU");
 		//	selfTest_join();
 		//selfTest_Condition2();
 		//selfTest_Alarm();
 		//selfTest_Communicator() ;
-		//selftest_PriorityScheduler() ;
+		//selftest_PriorityScheduler();
+		//selftest_LotteryScheduler();
 		//selfTest_Boat() ;
 		//selfTest_PriorityScheduler2();
     }
@@ -631,7 +632,7 @@ public class KThread {
 	}
 
 	public static void selftest_PriorityScheduler() {
-		/*
+		
 		System.out.println("-----PriorityScheduler test-----");
  		KThread thread1 = new KThread(new Runnable() {
 			public void run() {
@@ -672,9 +673,42 @@ public class KThread {
 		thread2.fork();
 		thread3.fork();
 		thread4.fork();
-		*/
+		
 	}
 
+	public static void selftest_LotteryScheduler() {
+		
+		System.out.println("-----LotteryScheduler test-----");
+ 		KThread thread1 = new KThread(new Runnable() {
+			public void run() {
+				KThread.yield();
+				System.out.println("thread 1: Finish");
+			}
+		});
+		thread1.setName("thread1");
+		KThread thread2 = new KThread(new Runnable() {
+			public void run() {
+				KThread.yield();
+				System.out.println("thread 2: Finish");
+			}
+		});
+		thread2.setName("thread2");
+		KThread thread3 = new KThread(new Runnable() {
+			public void run() {
+				KThread.yield();
+				System.out.println("thread 3: Finish");
+			}
+		});
+		thread3.setName("thread3");
+		boolean status = Machine.interrupt().disable();
+		nachos.threads.ThreadedKernel.scheduler.setPriority(thread1, 2);
+		nachos.threads.ThreadedKernel.scheduler.setPriority(thread2, 7);
+		nachos.threads.ThreadedKernel.scheduler.setPriority(thread3, 3);
+		Machine.interrupt().restore(status);
+		thread1.fork();
+		thread2.fork();
+		thread3.fork();
+	}
 	public static void selfTest_Boat() {
 		Lib.debug(dbgThread, "Enter KThread.selfTest");
 		System.out.println("______Boat test begin_____");

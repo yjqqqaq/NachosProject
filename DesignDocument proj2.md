@@ -8,7 +8,7 @@ if (descriptor < 0 || descriptor > 15 || openfile[descriptor] == null))
 
 int writeCount = openfile[descriptor].write(buf, 0, length);
 if (writeCount < length)
-	return -1; // Failure occurs when writing
+    return -1; // Failure occurs when writing
 ``` 
 
 Every process initializes with `stdin` and `stdout` opened as the file descriptors 0 and 1, respectively.
@@ -40,5 +40,7 @@ In lottery scheduling, the next thread is selected randomly: each thread gets so
 ### Test cases
 
 `test/sleepsort.c` is the test case for the first 3 tasks. It sorts 3 numbers by assign each number to a process which prints the number after time proportion to that number. Then the processes do some file operations and wait for their child by `join`.
+
+The test case for the scheduler is in `KThread.selftest_Lotteryscheduler`. We give 3 threads priority 2, 7, 3. It can be observed the thread with higher priority is scheduled more frequently.
 
 

@@ -69,7 +69,6 @@ public class LotteryScheduler extends PriorityScheduler {
         }
         public void add(LotteryThreadState state) {
             waitQueue.add(state);
-			waitSet[state.effectivepriority].add(state);
 		}
 
 		public boolean isEmpty() {
