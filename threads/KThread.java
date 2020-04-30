@@ -425,7 +425,7 @@ public class KThread {
 		//selfTest_Condition2();
 		//selfTest_Alarm();
 		//selfTest_Communicator() ;
-		selftest_PriorityScheduler() ;
+		//selftest_PriorityScheduler() ;
 		//selfTest_Boat() ;
 		//selfTest_PriorityScheduler2();
     }
@@ -631,6 +631,7 @@ public class KThread {
 	}
 
 	public static void selftest_PriorityScheduler() {
+		/*
 		System.out.println("-----PriorityScheduler test-----");
  		KThread thread1 = new KThread(new Runnable() {
 			public void run() {
@@ -671,6 +672,7 @@ public class KThread {
 		thread2.fork();
 		thread3.fork();
 		thread4.fork();
+		*/
 	}
 
 	public static void selfTest_Boat() {

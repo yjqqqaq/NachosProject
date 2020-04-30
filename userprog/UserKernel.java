@@ -3,7 +3,7 @@ package nachos.userprog;
 import nachos.machine.*;
 import nachos.threads.*;
 import nachos.userprog.*;
-
+import java.util.LinkedList;
 /**
  * A kernel that can support multiple user processes.
  */
@@ -26,7 +26,10 @@ public class UserKernel extends ThreadedKernel {
 	
 	Machine.processor().setExceptionHandler(new Runnable() {
 		public void run() { exceptionHandler(); }
-	    });
+        });
+        
+    for (int i = 0; i < Machine.processor().getNumPhysPages(); ++i)
+        freePages.add(i);
     }
 
     /**
@@ -34,7 +37,7 @@ public class UserKernel extends ThreadedKernel {
      */	
     public void selfTest() {
 	super.selfTest();
-
+    /*
 	System.out.println("Testing the console device. Typed characters");
 	System.out.println("will be echoed until q is typed.");
 
@@ -46,7 +49,8 @@ public class UserKernel extends ThreadedKernel {
 	}
 	while (c != 'q');
 
-	System.out.println("");
+    System.out.println("");
+    */
     }
 
     /**
@@ -107,6 +111,7 @@ public class UserKernel extends ThreadedKernel {
 	super.terminate();
     }
 
+    public static LinkedList<Integer> freePages = new LinkedList();
     /** Globally accessible reference to the synchronized console. */
     public static SynchConsole console;
 
